@@ -2,8 +2,8 @@ import express from 'express';
 import dotenv from 'dotenv';
 import colors from 'colors';
 import connectDB from './config/db.js';
-//Cuando se agregan archivos se agrega la extension .js
-import products from './data/products.js';
+
+import productRoutes from './routes/productRoutes.js';
 
 const app = express()
 
@@ -15,14 +15,7 @@ app.get('/',(req,res)=>{
     res.send('API is running')
 })
 
-app.get('/api/products',(req,res)=>{
-    //Se castean a json y se envian
-    res.json(products);
-})
-app.get('/api/products/:id',(req,res)=>{
-    const product = products.find(p => p._id ===req.params.id)
-    res.json(product);
-})
+app.use('/api/products', productRoutes)
 
 const PORT = process.env.PORT || 5000
 
