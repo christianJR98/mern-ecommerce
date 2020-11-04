@@ -19,7 +19,7 @@ export const login = (email, password) => async (dispatch)=>{
         )
 
         dispatch({
-            tyoe:USER_LOGIN_SUCCESS,
+            type:USER_LOGIN_SUCCESS,
             payload: data
         })
 
