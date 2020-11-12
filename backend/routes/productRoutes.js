@@ -6,16 +6,21 @@ import {
     deleteProduct,
     createProduct,
     updateProduct,
-    createProductReview
+    createProductReview,
+    getTopProducts
 } from '../controllers/productController.js'
 import { protect, admin } from '../middleware/authMidleware.js'
 
 //router.get('/',getProducts)
 //Se pueden escribir de estas dos maneras
 router.route('/').get(getProducts).post(protect, admin, createProduct)
-
 router.route('/:id/reviews').post(protect, createProductReview)
+router.get('/top',getTopProducts)
 
-router.route('/:id').get(getProductById).delete(protect, admin, deleteProduct).put(protect, admin, updateProduct)
+router
+    .route('/:id')
+    .get(getProductById)
+    .delete(protect, admin, deleteProduct)
+    .put(protect, admin, updateProduct)
 
 export default router
