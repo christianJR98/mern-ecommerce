@@ -5,8 +5,14 @@ import Product from '../models/productModel.js';
 // @route   GET /api/products
 // @access  Public 
 const getProducts = asyncHandler( async(req,res) => {
+    const keyword = req.query.keyword ? {
+        name: {
+            $regex: req.query.keyword,  //iph regresa iphone
+            $options: 'i'//case sensitive
+        }
+    } : {}
     //Si pasamos un objeto vacio nos regresa todos los registros
-    const products = await Product.find({})
+    const products = await Product.find({...keyword})
     //Se castean a json y se envian
     res.json(products);
 })
